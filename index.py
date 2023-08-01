@@ -116,7 +116,7 @@ class Main:
         self.driver.get("https://twitter.com")
 
     def set_token(self):
-        auth_token = "bb6234f5d7d817da458a54934ac450cfa4f137fa"
+        auth_token = "your_access_token"
         src = f"""
                 let date = new Date();
                 date.setTime(date.getTime() + (7*24*60*60*1000));
