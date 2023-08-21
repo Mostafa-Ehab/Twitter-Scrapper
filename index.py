@@ -42,7 +42,7 @@ class Main:
             num_reply = self.get_num_reply(tweet)
             num_retweet = self.get_num_retweet(tweet)
             num_like = self.get_num_like(tweet)
-            num_views = self.get_num_views(tweet, is_media)
+            # num_views = self.get_num_views(tweet, is_media)
 
             row['text'] = text
             row['retweet'] = re_tweet
@@ -51,7 +51,7 @@ class Main:
             row['num_retweet'] = num_retweet
             row['num_like'] = num_like
             row['num_quote'] = 0
-            row['num_views'] = num_views
+            # row['num_views'] = num_views
             row['num_reply'] = num_reply
             row['media'] = is_media
             row['url'] = url
@@ -116,7 +116,10 @@ class Main:
         self.driver.get("https://twitter.com")
 
     def set_token(self):
-        auth_token = "your_access_token"
+        auth_token = "" # Your access token
+        if not auth_token:
+            print("\n\nPlease set your access token on line 119 then try again (: \n")
+            exit()
         src = f"""
                 let date = new Date();
                 date.setTime(date.getTime() + (7*24*60*60*1000));

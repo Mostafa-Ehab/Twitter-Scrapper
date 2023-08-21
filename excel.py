@@ -30,9 +30,9 @@ def Excel(data):
         sheet1.write(i+1, 5, row["num_retweet"])
         sheet1.write(i+1, 6, row["num_reply"])
         sheet1.write(i+1, 7, row["num_quote"])
-        sheet1.write(i+1, 8, row["num_views"])
-        sheet1.write(i+1, 9, row["media"])
-        sheet1.write(i+1, 10, row["retweet"])
+        # sheet1.write(i+1, 8, row["num_views"])
+        sheet1.write(i+1, 8, row["media"])
+        sheet1.write(i+1, 9, row["retweet"])
 
 
     wb.save('Excel.xls')
