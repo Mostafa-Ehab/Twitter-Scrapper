@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.remote.webelement import WebElement
 from datetime import datetime
 from time import sleep
@@ -73,13 +73,20 @@ class Tweet:
     
     
     def __remove_pinned(self):
-        try:
-            if self.tweet.find_element(By.CSS_SELECTOR, 'div[data-testid="socialContext"]').get_attribute("innerText") == "Pinned":
-                print("Skipping pinned...")
-                raise TypeError
-            
-        except NoSuchElementException:
-            pass
+        while True:
+            try:
+                if self.tweet.find_element(By.CSS_SELECTOR, 'div[data-testid="socialContext"]').get_attribute("innerText") == "Pinned":
+                    print("Skipping pinned...")
+                    raise TypeError
+                
+            except NoSuchElementException:
+                pass
+
+            except StaleElementReferenceException:
+                sleep(1)
+                continue
+
+            break
 
 
     def __get_tweet_url(self) -> (str, bool):
