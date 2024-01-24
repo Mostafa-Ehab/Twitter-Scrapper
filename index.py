@@ -8,6 +8,12 @@ from excel import Excel
 
 def main():
     log.warning("Loading configurations...")
+    if not conf["token"]:
+        log.warning("Please set your access token in './files/conf.json' file")
+        log.warning("For more info visit this link: https://youtu.be/uHOz7BSPXCo")
+        input("\n\tPress any key to exit...")
+        return
+
     driver = open_driver(conf["headless"], conf["userAgent"])
     driver.get("https://twitter.com/")
     set_token(driver, conf["token"])
@@ -90,8 +96,13 @@ def load_conf() -> dict:
 
 
 if __name__  == "__main__":
-    conf = load_conf()
     log = Logger()
-    main()
+    try:
+        conf = load_conf()
+    except Exception:
+        log.warning("Sorry and error occured, Please check your config file")
+        input("\n\tPress any key to exit...")
+    else:
+        main()
 
 
