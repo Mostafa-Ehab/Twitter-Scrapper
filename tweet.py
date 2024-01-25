@@ -29,7 +29,7 @@ class Tweet:
                 self.tweet_num_reply = self.__get_tweet_num_reply()
             
             except TypeError:
-                Ad[0] += 1
+                self.Ad.append(self.tweet)
                 sleep(1)
                 driver.execute_script("arguments[0].scrollIntoView();", self.tweet)
                 continue
@@ -64,12 +64,13 @@ class Tweet:
     def __get_first_tweet(self) -> WebElement:
         while True:
             try:
-                tweet = self.driver.find_elements(
-                    By.CSS_SELECTOR, "article[data-testid='tweet']")[self.Ad[0]]
+                tweets = self.driver.find_elements(By.CSS_SELECTOR, "article[data-testid='tweet']")
+                for tweet in tweets:
+                    if tweet not in self.Ad:
+                        return tweet
             except IndexError:
                 sleep(0.5)
                 continue
-            return tweet
     
     
     def __remove_pinned(self):
@@ -90,14 +91,13 @@ class Tweet:
 
 
     def __get_tweet_url(self) -> (str, bool):
-        urls_obj = self.tweet.find_elements(By.CSS_SELECTOR, "a")
-        urls_list = [i.get_attribute("href") for i in urls_obj]
-        if urls_list[1] != self.driver.current_url:
-            url = urls_list[4]
-            re_tweet = True
-        else:
-            url = urls_list[3]
+        urls = self.tweet.find_elements(By.CSS_SELECTOR, "a")
+        url = urls[3].get_attribute("href")
+
+        if urls[0].get_attribute("href") == urls[1].get_attribute("href"):
             re_tweet = False
+        else:
+            re_tweet = True
 
         return url, re_tweet
 

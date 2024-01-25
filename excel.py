@@ -17,7 +17,7 @@ def Excel(
 
     for i, row in enumerate(data):
         for j, cell in enumerate(output):
-            print(row)
             sheet1.write(i+1, j, row[cell])
+        print(row)
 
     wb.save('Excel.xls')

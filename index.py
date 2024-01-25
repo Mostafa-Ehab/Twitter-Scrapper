@@ -34,7 +34,7 @@ def profile_search(
     driver.get(url)
 
     log.warning("Fetching...")
-    Ad = [0]
+    Ad = []
     results = []
     while len(results) < num:
         tweet = Tweet(driver, Ad)
@@ -53,7 +53,7 @@ def profile_search(
 
         json.dump(results, open("./files/temp.json", "w"))
         
-        log.info(f"{len(results) + 1} : {url}")
+        log.info(f"{len(results) + 1} : {data['URL']}")
 
     return results
 
