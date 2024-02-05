@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from selenium.webdriver.remote.webelement import WebElement
 from datetime import datetime
 from time import sleep
+import traceback
 
 
 class Tweet:
@@ -33,7 +34,13 @@ class Tweet:
                 sleep(1)
                 driver.execute_script("arguments[0].scrollIntoView();", self.tweet)
                 continue
-            
+
+            except Exception:
+                print(traceback.format_exc())
+                sleep(1)
+                # driver.execute_script("arguments[0].scrollIntoView();", self.tweet)
+                input("An error occured: ")
+                continue
             break
 
         self.__delete_tweet()
@@ -92,11 +99,12 @@ class Tweet:
 
     def __get_tweet_url(self) -> (str, bool):
         urls = self.tweet.find_elements(By.CSS_SELECTOR, "a")
-        url = urls[3].get_attribute("href")
 
         if urls[0].get_attribute("href") == urls[1].get_attribute("href"):
+            url = urls[3].get_attribute("href")
             re_tweet = False
         else:
+            url = urls[4].get_attribute("href")
             re_tweet = True
 
         return url, re_tweet
