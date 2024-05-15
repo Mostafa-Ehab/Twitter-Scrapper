@@ -150,13 +150,13 @@ class Tweet:
     #     return media
     
     def __get_tweet_num_likes(self):
-        return self.tweet.find_element(By.CSS_SELECTOR, "div[data-testid='like']").get_attribute("innerText")
+        return self.tweet.find_element(By.CSS_SELECTOR, "button[data-testid='like']").get_attribute("innerText")
 
     def __get_tweet_num_retweet(self):
-        return self.tweet.find_element(By.CSS_SELECTOR, "div[data-testid='retweet']").get_attribute("innerText")
+        return self.tweet.find_element(By.CSS_SELECTOR, "button[data-testid='retweet']").get_attribute("innerText")
     
     def __get_tweet_num_reply(self):
-        return self.tweet.find_element(By.CSS_SELECTOR, "div[data-testid='reply']").get_attribute("innerText")
+        return self.tweet.find_element(By.CSS_SELECTOR, "button[data-testid='reply']").get_attribute("innerText")
 
 
     def __delete_tweet(self):
