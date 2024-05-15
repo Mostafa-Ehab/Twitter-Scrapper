@@ -97,7 +97,7 @@ class Tweet:
             break
 
 
-    def __get_tweet_url(self) -> (str, bool):
+    def __get_tweet_url(self) -> tuple[str, bool]:
         urls = self.tweet.find_elements(By.CSS_SELECTOR, "a")
 
         if urls[0].get_attribute("href") == urls[1].get_attribute("href"):
